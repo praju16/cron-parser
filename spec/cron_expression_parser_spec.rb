@@ -18,6 +18,18 @@ RSpec.describe CronExpressionParser do
       response = @cron_expression_algorithm.parse("* * * * * /usr/bin/find")
       expect(response).to eq expected_val
     end
+
+    it "when expression is comma expression '2,11,45 0 1 10 6 /usr/bin/find' " do
+      expected_val = {"minute"=>"2 11 45", "hour"=>"0", "dayofmonth"=>"1", "month"=>"10", "dayofweek"=>"6", "command"=>"/usr/bin/find"}
+      response = @cron_expression_algorithm.parse("2,11,45 0 1 10 6 /usr/bin/find")
+      expect(response).to eq expected_val
+    end
+
+    it "when expression is incremental expression with range '2,11,45 0 1-10/2 10 6 /usr/bin/find' " do
+      expected_val = {"minute"=>"2 11 45", "hour"=>"0", "dayofmonth"=>"1 3 5 7 9", "month"=>"10", "dayofweek"=>"6", "command"=>"/usr/bin/find"}
+      response = @cron_expression_algorithm.parse("2,11,45 0 1-10/2 10 6 /usr/bin/find")
+      expect(response).to eq expected_val
+    end
   end
 
   context "When expression is Invalid:" do
