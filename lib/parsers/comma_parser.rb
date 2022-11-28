@@ -9,11 +9,11 @@ class CommaParser
     matched_values = expression.match("(.*),(.*)")
     return false if matched_values.nil?
     values = matched_values[0].split(",")
-    allowed_values.include?(values[0]) && allowed_values.include?(values[1])
+    values.all? { |value| allowed_values.include?(value) }
   end
 
   def transform(expression)
     values = expression.split(",")
-    values.join(" ")
+    values.uniq.join(" ")
   end
 end

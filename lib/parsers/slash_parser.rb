@@ -8,7 +8,7 @@ class SlashParser
   def is_applicable?(expression)
     matched_values = expression.match("(.*)/(.*)")
     return false if matched_values.nil?
-    values = matched_values[0].split("/")
+    values =  matched_values[1..2]
     is_numeric_slash?(values) || is_asterisk_slash?(values) || is_range_slash?(values)
   end
 
@@ -47,7 +47,9 @@ class SlashParser
   end
 
   def is_range_slash?(values)
-    range_values = values[0].split("-")
+    return false unless values[0].include?("-")
+    range_values = values[0].split("-") 
+    return false if (range_values[0] > range_values[1]) or range_values.length > 2
     allowed_values.include?(range_values[0]) && allowed_values.include?(range_values[1])
   end
 end
