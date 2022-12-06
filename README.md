@@ -18,4 +18,14 @@ command       /usr/bin/find
 
 ### Running test cases(optional)
 
-$bundle exec rspec
+bundle exec rspec
+
+rspec
+
+rspec spec/cron_expression_parser_spec.rb (file testing)
+
+rspec spec/cron_expression_parser_spec.rb:34 (line number test)
+
+###Fixing format
+
+standardrb --fix

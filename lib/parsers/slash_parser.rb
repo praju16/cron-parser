@@ -39,7 +39,7 @@ class SlashParser
   end
 
   def is_numeric_slash?(values)
-    allowed_values.include?(values[0]) && allowed_values.include?(values[1])
+    allowed_values.include?(values[0]) && !values[1].match(/^(\d)+$/).nil?
   end
 
   def is_asterisk_slash?(values)
